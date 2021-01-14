@@ -1,4 +1,5 @@
 <?php
+
 namespace app\index\controller;
 use \think\View;
 use \think\Cookie;
@@ -7,9 +8,6 @@ use \think\Url;
 use \think\Request;
 class YlnIndex extends Model
 {
-    protected $autoWriteTimestamp=false;   
-    protected $createTime = false;
-    protected $updateTime = false;
 }
 class YlnUser extends Model
 {
@@ -20,6 +18,11 @@ class Index extends \think\Controller
 {
     public function index()
     {
+		if(!file_exists('install.lock')){
+            echo "<script language='javascript' type='text/javascript'>";
+            echo "window.location.href='index.php/install/install/install'";
+            echo "</script>";
+        }
         //数据库查询
         $webdate = YlnIndex::get(1);//根据用户识别码
         if(!Cookie::has('safecode')){
@@ -27,13 +30,6 @@ class Index extends \think\Controller
         }else{
             $status='<a class="btn btn-primary btn-lg" href="index.php/home/home/home" role="button">用户中心</a>';
         }
-        $number=$webdate['num'];
-        $number2=$number+1;
-        $web = new YlnIndex;
-        $web->save([
-              'num' => $number2
-              ],['Id' => 1]);
-        $total=YlnUser::all()->count();
         //模板渲染
         $view = new View();
         $view->assign('login','index.php/index/index/login');
@@ -41,7 +37,7 @@ class Index extends \think\Controller
         $view->assign('name',$webdate['name']);
         $view->assign('status',$status);
         $view->assign('num',$webdate['num']);
-        $view->assign('total',$total);
+        $view->assign('total',$webdate['total']);
         $view->assign('copy',$webdate['copy']);
         return $view->fetch('index',[],['__PUBLIC__'=>'/public/static/index/style']);
     }
@@ -78,14 +74,8 @@ class Index extends \think\Controller
         if(input('param.'))
         {
         //输入数据
-            $random=random(20,'all');
             $in_put = input('param.');
             $search = new YlnUser();
-            $search_dir=$search->where('dir',$random)->find();
-            if($search_dir){
-                $this->error('注册出现了小问题，再试一遍吧');
-                exit();
-            }
             $search_data = $search->whereOr('name',$in_put['name'])->whereOr('phone',$in_put['phone'])->whereOr('qq',$in_put['qq'])->find();
             if($search_data)
             {
@@ -95,9 +85,7 @@ class Index extends \think\Controller
                 {
                     $this->error('密码太短了哦，请输入大于6位的密码');
                 }
-
                 $ylnuser = new YlnUser;
-
                 $ylnuser->data([
                     'name'  =>  $in_put['name'],
                     'mail' =>  $in_put['mail'],
@@ -108,14 +96,8 @@ class Index extends \think\Controller
                     'birth' => '2000-01-01',
                     'reminder' => 0,
                     'status' => 1,
-                    'safecode' => '00000000000000000000',
-                    'code' => random(20,'string',0),
-                    'dir' => $random
+                    'safecode' => '00000000000000000000'
                 ]);
-                if(!mkdir('file/'.$random,0777)){
-                    $this->error('出了点小问题');
-                    exit();
-                }
                 if($ylnuser->save())
                 {
                    $this->success('注册成功，正在前往登录页面','login');
