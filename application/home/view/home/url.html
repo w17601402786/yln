@@ -1,0 +1,52 @@
+{include file='home/base/header' /}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>站点管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="alert alert-success">
+                            你的授权码为<div style="color: red"> {$user.code}</div>请先安装，再在此页管理你的网站<br><a href='http://www.e-memories.cn/web.zip' >点此下载安装程序</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+
+                            <th>Id</th>
+                            <th>站长uid</th>
+                            <th>域名</th>
+                            <th>识别码</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name='url' id='url'}
+                        <tr>
+                            <td>{$url.Id}</td>
+                            <td>{$url.uid}</td>
+                            <td><a href="{$url.domain}">{$url.domain}</a> </td>
+                            <td>{$url.identity_code}</td>
+                            <td>
+                                <form action="admin" method="post">
+                                    <input type="hidden" name="url" value="{$url.domain}">
+                                    <button class="btn btn-w-m btn-info">管理</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{include file='home/base/footer' /}

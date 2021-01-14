@@ -1,0 +1,124 @@
+{include file='home/base/header' /}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>站内动态</h2>
+        <ol class="breadcrumb">
+            <li>
+                <span>主页</span>
+            </li>
+            <li href="friend">
+                站内动态
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>动态发表</h5>
+                </div>
+                <form action="" method="post">
+                    <input type="hidden" name="status" value="1">
+                    <div class="media-body">
+                        <textarea class="form-control" placeholder="填写动态..." name="info"></textarea>
+                    </div>
+                    <div align="right">
+                        <button type="submit" class="btn btn-primary ">
+                            <i class="fa fa-check"></i>发表
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>最新动态</h5>
+
+                </div>
+                {volist name='blog' id='blog'}
+                <div class="social-feed-box">
+                    <div class="social-avatar">
+                        <a href="" class="pull-left">
+                            <img alt="image" class="img-circle" src="http://q1.qlogo.cn/g?b=qq&nk={$blog.qq}&s=160">
+                        </a>
+                        <div class="media-body">
+                            <a href="#">
+                                {$blog.name}
+                            </a>
+                            <small class="text-muted">{$blog.time}</small>
+                        </div>
+                    </div>
+                    <div class="social-body">
+                        <p>
+                            {$blog.info}
+                        </p>
+
+                        <div class="btn-group">
+                            <form action="" method="get" id="form1"></form>
+                            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> 赞</button>
+                            <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> 分享</button>
+                            {if condition="$blog['name']==$person['name']"}
+
+                                <input form="form1" type="hidden" name="delete_blog_Id" value="{$blog.Id}">
+                                <button class="btn btn-white btn-xs" form="form1"><i class="fa fa-times"></i> 删除</button>
+
+                            {/if}
+
+                        </div>
+                    </div>
+                    <div class="social-footer">
+
+                        {volist name='blog.comment' id='comment'}
+                        <div class="social-comment">
+                            <a href="" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://q1.qlogo.cn/g?b=qq&nk={$comment.qq}&s=160">
+                            </a>
+                            <div class="media-body">
+                                <a href="#">
+                                    {$comment.name}
+                                </a>
+                                <br/>
+                                {$comment.info}
+                                {if condition="$comment['name']==$person['name']"}
+                                <a href="?delete_Id={$comment.Id}" class="pull-right btn btn-danger fa fa-times btn-xs"></a>
+                                {/if}
+                                <br/>
+                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 0</a> -
+                                <small class="text-muted">{$comment.time}</small>
+                            </div>
+                        </div>
+                        {/volist}
+                        <div class="social-comment">
+                            <a href="" class="pull-left">
+                                <img alt="image" class="img-circle" src="http://q1.qlogo.cn/g?b=qq&nk={$person.qq}&s=160">
+                            </a>
+                            <form action="" method="post">
+                                <input type="hidden" name="blog_Id" value="{$blog.Id}">
+                                <div class="media-body">
+                                    <textarea class="form-control" placeholder="填写评论..." name="info"></textarea>
+                                </div>
+                                <div align="right">
+                                    <button type="submit" class="btn btn-primary ">
+                                        <i class="fa fa-check"></i>发表
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+{/volist}
+                <div class="text-center">
+                {$page}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{include file='home/base/footer' /}

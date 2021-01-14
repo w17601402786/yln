@@ -1,0 +1,101 @@
+{include file='home/base/header' /}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{$friend.name}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <span>主页</span>
+            </li>
+            <li href="friend">
+                交友中心
+            </li>
+            <li>
+                <strong>用户详情</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        {switch name="friend.sex" }
+                        {case value="男孩纸"}他{/case}
+                        {case value="女孩纸"}她{/case}
+                        {default /}他
+                        {/switch}的资料
+                    </h5>
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right"
+                         style="text-align: center;background-size: cover;">
+                        <img src="http://q1.qlogo.cn/g?b=qq&nk={$friend.qq}&s=160"
+                             class="img-circle circle-border m-b-md" alt="{$friend.name}的头像"
+                             style="margin-top: 20px;width: 150px;">
+                    </div>
+                    <div class="ibox-content profile-content">
+                        <h4><strong>{$friend.name}</strong></h4>
+                        <p><i class="fa fa-map-marker"></i> {$friend.city}</p>
+                        <h5>注册时间:{$friend.regtime}</h5>
+                        <h5>最后登陆:{$friend.lasttime}</h5>
+                        <h5>QQ号码:{$friend.qq}</h5>
+                        <h5>性别：{$friend.sex}</h5>
+                        <h5>联系电话：{$friend.phone}</h5>
+                        <h5>邮箱：{$friend.mail}</h5>
+                        <h5>生日：{$friend.birth}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>最新动态</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="profile.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div>
+                        <div class="feed-activity-list">
+                            <div class="feed-element">
+                                <a href="#" class="pull-left">
+                                    <img alt="image" class="img-circle"
+                                         src="http://q1.qlogo.cn/g?b=qq&nk={$friend.qq}&s=160">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="pull-right text-navy">2001-08-16</small>
+                                    在本站注册成为会员: <strong>2001-08-16</strong>.
+                                    <br>
+                                    <div class="actions">
+                                        <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
+                                        <a class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> 收藏</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{include file='home/base/footer' /}

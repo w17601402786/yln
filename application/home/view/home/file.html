@@ -1,0 +1,76 @@
+{include file='home/base/header' /}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5 class="text-danger">上传文件名不能包含中文！</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="page-container">
+                    <div id="uploader" class="wu-example">
+                        <div class="queueList">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker"></div>
+                                <p>或将照片拖到这里，单次最多可选300张</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div>
+                            <div class="info"></div>
+                            <div class="btns">
+                                <div id="filePicker2"></div>
+                                <div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>文件管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+
+                            <th>文件名</th>
+                            <th>文件地址</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name='file' id='file'}
+                        <tr>
+                            <td>{$file}</td>
+                            <td><a href="{$domain}/file/{$dir}/{$file}" target="view_window">{$domain}/file/{$dir}/{$file}</a></td>
+                            <td>
+                                <form action="file" method="post">
+                                    <input type="hidden" name="edit" value="{$file}">
+                                    <button class="btn btn-w-m btn-info" disabled>修改</button>
+                                </form>
+                                <form action="file" method="post">
+                                    <input type="hidden" name="del" value="{$file}">
+                                    <button class="btn btn-w-m btn-danger">删除</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{include file='home/base/footer' /}
