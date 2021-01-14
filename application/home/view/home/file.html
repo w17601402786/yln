@@ -52,7 +52,7 @@
                         {volist name='file' id='file'}
                         <tr>
                             <td>{$file}</td>
-                            <td><a href="{$domain}/file/{$dir}/{$file}" target="view_window">{$domain}/file/{$dir}/{$file}</a></td>
+                            <td><a href="{$domain}/file/{$dir}/{$file}" download="{$domain}/file/{$dir}/{$file}" target="view_window">{$domain}/file/{$dir}/{$file}</a></td>
                             <td>
                                 <form action="file" method="post">
                                     <input type="hidden" name="edit" value="{$file}">
